@@ -25,7 +25,33 @@ const populateHeader = (dataObj) => {
   header.append(h1, p);
 };
 
-const populateSection = (dataObj) => {};
+const populateSection = (dataObj) => {
+  const section = document.querySelector("section");
+  const heroes = dataObj.members;
+
+  for (const hero of heroes) {
+    const article = document.createElement("article");
+    const h2 = document.createElement("h2");
+    const p1 = document.createElement("p");
+    const p2 = document.createElement("p");
+    const p3 = document.createElement("p");
+    const myList = document.createElement("ul");
+
+    h2.textContent = hero.name;
+    p1.textContent = `Secret identity: ${hero.secretIdentity}`;
+    p2.textContent = `Age: ${hero.age}`;
+    p3.textContent = "Superpowers:";
+
+    hero.powers.forEach((power) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = power;
+      myList.appendChild(listItem);
+    });
+
+    article.append(h2, p1, p2, p3, myList);
+    section.append(article);
+  }
+};
 
 const populateHeaderErr = () => {
   const header = document.querySelector("header");
