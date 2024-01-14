@@ -7,9 +7,13 @@ const getData = async (requestURL) => {
     if (!response.ok) {
       throw new Error(`Failed to fetch data. Status: ${response.status}`);
     }
-    const data = await response.json();
-    log(data);
-    return data;
+    // const data = await response.json();
+
+    const dataText = await response.text();
+    const dataParsed = JSON.parse(dataText);
+    log(dataText);
+    // log(data);
+    return dataParsed;
   } catch (error) {
     log(error.message);
     throw error;
