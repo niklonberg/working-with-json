@@ -16,22 +16,33 @@ const getData = async (requestURL) => {
   }
 };
 
-const populateHeader = (obj) => {
+const populateHeader = (dataObj) => {
   const header = document.querySelector("header");
   const h1 = document.createElement("h1");
-  h1.textContent = obj.squadName;
+  h1.textContent = dataObj.squadName;
   const p = document.createElement("p");
-  p.textContent = `Hometown: ${obj.homeTown}. Formed: ${obj.formed}`;
+  p.textContent = `Hometown: ${dataObj.homeTown}. Formed: ${dataObj.formed}`;
   header.append(h1, p);
 };
 
-const populateSection = (obj) => {};
+const populateSection = (dataObj) => {};
+
+const populateHeaderErr = () => {
+  const header = document.querySelector("header");
+  const h1 = document.createElement("h1");
+  h1.textContent = "Error getting data";
+  header.append(h1);
+};
 
 const populate = async (requestURL, headerFn, sectionFn) => {
-  const data = await getData(requestURL);
+  try {
+    const data = await getData(requestURL);
 
-  headerFn(data);
-  sectionFn(data);
+    headerFn(data);
+    sectionFn(data);
+  } catch (error) {
+    populateHeaderErr();
+  }
 };
 
 populate(
